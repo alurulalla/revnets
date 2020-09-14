@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Segment, Header, Form, Button } from 'semantic-ui-react';
 import cuid from 'cuid';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createEvent, updateEvent } from '../eventActions';
 
-const EventForm = ({
-  setFormOpen,
-  setEvents,
-  createEvent,
-  selectedEvent,
-  updateEvent,
-}) => {
+const EventForm = ({ match, history }) => {
+  const selectedEvent = useSelector((state) =>
+    state.event.events.find((e) => e.id === match.params.id)
+  );
+  const dispatch = useDispatch();
   const initialValues = selectedEvent ?? {
     title: '',
     category: '',
@@ -27,15 +27,17 @@ const EventForm = ({
 
   const handleFormSubmit = () => {
     selectedEvent
-      ? updateEvent({ ...selectedEvent, ...values })
-      : createEvent({
-          ...values,
-          attendees: [],
-          id: cuid(),
-          hostedBy: 'Bob',
-          hostPhotoURL: '/assets/user.png',
-        });
-    setFormOpen(false);
+      ? dispatch(updateEvent({ ...selectedEvent, ...values }))
+      : dispatch(
+          createEvent({
+            ...values,
+            attendees: [],
+            id: cuid(),
+            hostedBy: 'Bob',
+            hostPhotoURL: '/assets/user.png',
+          })
+        );
+    history.push('/events');
   };
   return (
     <Segment clearing>
