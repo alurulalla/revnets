@@ -14,9 +14,10 @@ export function increment(amount) {
     dispatch(asyncActionStart());
     try {
       await delay(1000);
+      // eslint-disable-next-line no-throw-literal
       throw 'oops';
-      dispatch({ type: INCREMENT_COUNTER, payload: amount });
-      dispatch(asyncActionFinish());
+      // dispatch({ type: INCREMENT_COUNTER, payload: amount });
+      // dispatch(asyncActionFinish());
     } catch (error) {
       dispatch(asyncActionError(error));
       toast.error(error);

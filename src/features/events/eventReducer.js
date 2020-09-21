@@ -1,4 +1,4 @@
-import { sampleData } from '../../app/api/sampleData';
+// import { sampleData } from '../../app/api/sampleData';
 import {
   CREATE_EVENT,
   UPDATE_EVENT,
