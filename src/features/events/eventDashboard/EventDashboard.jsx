@@ -10,11 +10,13 @@ import { useDispatch } from 'react-redux';
 
 import useFirestoreCollection from '../../../app/hooks/useFirestoreCollection';
 import { listenToEvents } from '../eventActions';
+import EventsFeed from './EventsFeed';
 
 const EventDashboard = () => {
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state.event);
   const { loading } = useSelector((state) => state.async);
+  const { authenticated } = useSelector((state) => state.auth);
   const [predicate, setPredicate] = useState(
     new Map([
       ['startDate', new Date()],
@@ -57,6 +59,7 @@ const EventDashboard = () => {
         <EventList events={events} deleteEvent={handleDeleteEvent} />
       </Grid.Column>
       <Grid.Column width={6}>
+        {authenticated && <EventsFeed />}
         <EventFilters
           predicate={predicate}
           setPredicate={handleSetPredicate}
