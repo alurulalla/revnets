@@ -1,8 +1,11 @@
-const { SIGN_IN_USER, SIGN_OUT_USER } = require('./authConstants');
+import { LOCATION_CHANGE } from 'connected-react-router';
+import { SIGN_IN_USER, SIGN_OUT_USER } from './authConstants';
 
 const initialState = {
   authenticated: false,
   currentUser: null,
+  prevLocation: null,
+  currentLocation: null,
 };
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -25,7 +28,12 @@ const authReducer = (state = initialState, { type, payload }) => {
         authenticated: false,
         currentUser: null,
       };
-
+    case LOCATION_CHANGE:
+      return {
+        ...state,
+        prevLocation: state.currentLocation,
+        currentLocation: payload.location,
+      };
     default:
       return state;
   }

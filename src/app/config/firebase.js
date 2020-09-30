@@ -5,7 +5,7 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDBX1_1YVpDzH54xTOhnKUHol9Y8RPSTho',
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: 'revents-81caf.firebaseapp.com',
   databaseURL: 'https://revents-81caf.firebaseio.com',
   projectId: 'revents-81caf',
